@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pkl
+*.db
+*.sqlite3
+*.egg-info/
+dist/
+build/
+.env
+.venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data (do not commit large datasets)
+data/raw/
+data/processed/
+data/model_output/
+
+# Dashboards / Notebooks outputs
+Notebooks/
+dashboards/
+
+# Docker
+*.dockerignore
+*.tar
+*.log
+
+# Model artifacts & training logs
+models/artifacts/
+*.h5
+*.pt
+*.ckpt
+
+# Images / plots
+*.png
+*.jpg
+*.jpeg
+*.svg
+*.pdf
+
+# Temporary / OS files
+.DS_Store
+Thumbs.db
