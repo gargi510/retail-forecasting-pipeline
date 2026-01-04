@@ -1,7 +1,9 @@
 # 🛒 Retail Demand Promotion Intelligence System
 
+[![GitHub Repo](https://img.shields.io/badge/GitHub-retail--forecasting--pipeline-black?logo=github)](https://github.com/gargi510/retail-forecasting-pipeline)
 [![Python](https://img.shields.io/badge/Python-3.10+-blue?logo=python)](https://www.python.org/)
 [![XGBoost](https://img.shields.io/badge/XGBoost-Boosted-orange?logo=xgboost)](https://xgboost.readthedocs.io/)
+[![TensorFlow](https://img.shields.io/badge/TensorFlow-2.20-orange?logo=tensorflow)](https://www.tensorflow.org/)
 [![Docker](https://img.shields.io/badge/Docker-Container-blue?logo=docker)](https://www.docker.com/)
 [![AWS](https://img.shields.io/badge/AWS-Cloud-orange?logo=amazon-aws)](https://aws.amazon.com/)
 [![Tableau](https://img.shields.io/badge/Tableau-Dashboard-blue?logo=tableau)](https://www.tableau.com/)
@@ -18,13 +20,13 @@ Designed to help retail teams **maximize promotion effectiveness, optimize inven
 - **Predictive Modeling:** XGBoost + Feedforward Neural Network ensemble achieving **SMAPE 5.83%**
 - **Causal Insights:** Measures promotion uplift beyond correlation using causal inference techniques
 - **Interactive Dashboards:** Tableau for high-level business insights and executive decision support
-- **Deployment-ready:** Dockerized for **AWS Batch**, with optional real-time API capabilities
+- **Deployment-ready:** Dockerized for AWS Batch, ready for cloud execution
 
 ---
 
 ## 📊 Tableau Analysis
 
-**Dashboard:** [Retail Demand Promotion Intelligence Dashboard](https://public.tableau.com/views/RetailDemandPromotionIntelligenceDashboard/Dashboard1?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link)
+**Dashboard:** [![Dashboard Preview](dashboards/dashboard_preview.png)](https://public.tableau.com/views/RetailDemandPromotionIntelligenceDashboard/Dashboard1)
 
 **Key Insights:**
 
@@ -92,77 +94,82 @@ Retail-Demand-Promotion-Intelligence-System/
 
 ### 1. **Exploratory Data Analysis (EDA)**
 
-**Notebook:** `Notebooks/01_EDA_and_Hypothesis_Testing.ipynb`
+**Notebook:** [EDA and Hypothesis Testing](Notebooks/01_EDA_and_Hypothesis_Testing.ipynb)  
 
 **Objectives:**
-- Data validation of 188,340 training records (Jan 2018 – May 2019) and 22,265 test records (June – July 2019)
-- Statistical hypothesis testing using ANOVA and Tukey HSD
-- Time series analysis including stationarity and autocorrelation tests
-- Distribution and correlation analysis
+- Validate 188k training records (Jan 2018 – May 2019) and 22k test records (June – July 2019)  
+- Perform statistical hypothesis testing (ANOVA, Tukey HSD)  
+- Conduct time series analysis, distribution checks, and correlation analysis  
 
 **Key Findings:**
-- **Promotional Impact:** Promotions occur on 45% of days but generate 52% of total sales, increasing AOV by ~7%
-- **Holiday Performance:** Sales drop 19% on holidays, indicating defensive (not growth-oriented) discounting
-- **Regional Trends:** Region 1 contributes 37% of total sales
-- **Data Quality:** Clean dataset with no missing or duplicate values
+- Promotions occur on 45% of days, generating 52% of total sales (+~7% AOV)  
+- Holiday sales drop 19% despite promotions  
+- Region 1 contributes 37% of total sales  
+- Clean dataset with no missing or duplicate values  
+
+> Full results in [RESULTS.md](RESULTS.md)
+
+---
 
 ### 2. **Feature Engineering**
 
-**Module:** `src/features/`
+**Module:** [`src/features/`](src/features/)  
 
-Feature types generated:
-- **Lag features:** Historical sales patterns
-- **Rolling statistics:** Moving averages and standard deviations
-- **Categorical features:** Store, item, region encodings
-- **Date features:** Day of week, month, seasonality indicators
-- **Promotion features:** Discount depth, promotion duration
+Features generated:
+- Lag & rolling statistics (historical patterns & moving averages)  
+- Categorical encodings (store, item, region)  
+- Date & seasonal features (day of week, month, seasonality)  
+- Promotion features (discount depth, duration)  
 
-All features are generated using **leak-safe pipelines** to prevent data leakage.
+> Leak-safe pipelines prevent data leakage.  
+
+---
 
 ### 3. **Causal Analysis**
 
-**Notebook:** `Notebooks/02_causal_analysis.ipynb`
+**Notebook:** [Causal Analysis](Notebooks/02_causal_analysis.ipynb)  
 
-- Measures true promotional uplift using causal inference
-- Residual analysis to identify incremental impact
-- Counterfactual modeling to estimate sales without promotions
+- Measures true promotional uplift using causal inference  
+- Residual analysis to identify incremental impact  
+- Counterfactual modeling to estimate sales without promotions  
+
+---
 
 ### 4. **Predictive Modeling**
 
-#### **XGBoost Model**
-- Gradient boosting with hyperparameter tuning (Optuna)
-- Validation SMAPE: **~5.90%**
-- Script: `src/training/train_xgb.py`
+**XGBoost** (`src/training/train_xgb.py`)  
+- Gradient boosting with Optuna hyperparameter tuning  
+- Validation SMAPE: ~5.90%  
 
-#### **Neural Network Model**
-- Feedforward architecture with batch normalization
-- RobustScaler for features, StandardScaler for target
-- Validation SMAPE: **~5.31%**
-- Script: `src/training/train_nn.py`
+**Neural Network** (`src/training/train_nn.py`)  
+- Feedforward NN with batch normalization  
+- Validation SMAPE: ~5.31%  
 
-#### **Ensemble Model**
-- Weighted combination of XGBoost + Neural Network
-- Improves stability and reduces bias
-- Final Validation SMAPE: **~5.83%**
-- Script: `src/ensemble.py`
+**Ensemble Model** (`src/ensemble.py`)  
+- Weighted combination of XGBoost + Neural Network  
+- Final Validation SMAPE: ~5.83%  
+
+> Detailed performance metrics in [RESULTS.md](RESULTS.md)  
+
+---
 
 ### 5. **Validation & Metrics**
 
-**Script:** `src/validate.py`
+**Script:** [`src/validate.py`](src/validate.py)  
 
-Metrics calculated:
-- **SMAPE** (Symmetric Mean Absolute Percentage Error)
-- **RMSE** (Root Mean Square Error)
-- Model disagreement statistics
-- Bias summaries
+Metrics include:
+- SMAPE (Symmetric Mean Absolute Percentage Error)  
+- RMSE (Root Mean Square Error)  
+- Model disagreement & bias summaries  
+
+> Full validation reports and visualizations in [RESULTS.md](RESULTS.md)  
+
 
 ---
 
 ## ⚡ Quickstart
 
 See [QUICKSTART.md](QUICKSTART.md) for detailed setup instructions.
-
-**TL;DR:**
 
 ```bash
 # Clone repository
@@ -214,24 +221,6 @@ Balance volume-driven vs. price-driven revenue growth through data-driven pricin
 Tableau dashboards provide actionable insights for strategic planning and resource allocation.
 
 ---
-
-## 🐳 Deployment
-
-### Docker Deployment
-
-Build and run the containerized pipeline:
-
-```bash
-# Build image
-docker build -t retail-demand-forecast .
-
-# Run container
-docker run -v $(pwd)/data:/app/data retail-demand-forecast
-```
-
-### AWS Batch Deployment
-
-For production-grade deployment on AWS Batch, see [DEPLOYMENT.md](DEPLOYMENT.md).
 
 **Key features:**
 - Automated scheduled forecasts
